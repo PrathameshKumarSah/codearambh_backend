@@ -15,10 +15,11 @@ app.use(express.urlencoded({extended: false}));
 
 app.use(
   cors({
-    origin: process.env.CLIENT_APP,
+    origin: "*", // Allows access from anywhere
     credentials: true,
   })
-  );
+);
+
 
 app.use('/api', webRoutes);
 app.get('/test', (req, res) => res.send("testing"));
@@ -35,6 +36,7 @@ export const config = {
     queueLimit: 0          // No limit on the number of queued connection requests
 };
 
-app.listen(PORT, async () => {
-    console.log(`Server is Started listening on Port ${PORT}`);
-})
+app.listen(PORT, '0.0.0.0', async () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
+
