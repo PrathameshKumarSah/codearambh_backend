@@ -15,12 +15,15 @@ export const register =  async (req, res) => {
           leaderEmail,
           leaderPhone,
           members,
-          projectIdea
+          projectIdea,
+          pptGoogleDriveUrl,
+          preferredTheme,
+          videoGoogleDriveUrl
         } = req.body;
 
-        console.log(members)
+        // console.log(members)
     
-        if (!teamName || !teamSize || !leaderName || !leaderEmail || !leaderPhone) {
+        if (!teamName || !pptGoogleDriveUrl || !preferredTheme || !videoGoogleDriveUrl || !teamSize || !leaderName || !leaderEmail || !leaderPhone) {
           return res.status(400).json({ error: "Missing required fields" });
         }
     
@@ -32,17 +35,17 @@ export const register =  async (req, res) => {
         // SQL Query
         const query = `
           INSERT INTO teams (
-            team_name, team_size, leader_name, leader_email, leader_phone,
+            team_name, theme, team_size, ppt_url, demo_video_url, leader_name, leader_email, leader_phone,
             member1_name, member1_email, member1_phone,
             member2_name, member2_email, member2_phone,
             member3_name, member3_email, member3_phone,
             project_idea
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
     
         // Execute Query
         const values = [
-          teamName, teamSize, leaderName, leaderEmail, leaderPhone,
+          teamName, teamSize, pptGoogleDriveUrl, preferredTheme, videoGoogleDriveUrl, leaderName, leaderEmail, leaderPhone,
           member1.name, member1.email, member1.phone,
           member2.name, member2.email, member2.phone,
           member3.name, member3.email, member3.phone,
